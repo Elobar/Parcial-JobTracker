@@ -7,8 +7,8 @@
 | | |
 |---|---|
 | **Proyecto** | JobTracker |
-| **Estudiante** | _[Tu nombre completo]_ |
-| **Repositorio** | _[URL de este repositorio en GitHub]_ |
+| **Estudiante** | _Edinso Barros Lopez_ |
+| **Repositorio** | _https://github.com/Elobar/Parcial-JobTracker_ |
 
 **Descripción.** JobTracker es una aplicación de escritorio para llevar el control de los procesos de selección a los que se postula una persona: empresa, cargo, fecha, enlace de la oferta, salario ofrecido, estado del proceso y notas.
 
@@ -33,7 +33,7 @@
 
 | Tecnología | Detalle |
 |---|---|
-| .NET | 8.0 (`net8.0`) |
+| .NET | 10.0 (`net10.0`) |
 | Lenguaje | C# 12 |
 | Interfaz gráfica | Avalonia UI 11.3 (XAML `.axaml`, tema Fluent) |
 | Acceso a datos | ADO.NET con `Microsoft.Data.Sqlite` 8.0 |
@@ -173,8 +173,8 @@ classDiagram
    Si tienes un SDK más nuevo (9 o 10), abre `JobTracker.csproj` y cambia `<TargetFramework>net8.0</TargetFramework>` por la versión que tengas (`net9.0`, `net10.0`).
 2. **Instalar Git** y obtener el código:
    ```bash
-   git clone <URL-del-repositorio>
-   cd <carpeta-del-repositorio>
+   git clone <https://github.com/Elobar/Parcial-JobTracker>
+   cd <cd Parcial-JobTracker>
    ```
    (Entra a la carpeta donde está el archivo `JobTracker.csproj`.)
 3. **Restaurar las dependencias** (descarga los paquetes NuGet):
