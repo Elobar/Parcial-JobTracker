@@ -240,7 +240,7 @@ Se abrirá la ventana de la aplicación. Para compilar sin ejecutar: `dotnet bui
 
 ## 10. Ideas para continuar el proyecto
 
-La aplicación ya trae **puntos de conexión** (marcados con `TODO(FUTURO ...)` en el código) para ampliarla sin reescribirla:
+La aplicación ya le deje un par de **puntos de conexión** para que en caso me de por ampliarla poder hacerlo sin reescribirla toda y que haya desorden:
 
 - `IJobScraper`: bots que lean ofertas desde páginas de empleo (por enlace o por búsqueda).
 - `IJobAiAnalyzer`: IA que resuma ofertas y calcule la compatibilidad con el perfil.
