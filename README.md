@@ -228,7 +228,7 @@ Se abrirá la ventana de la aplicación. Para compilar sin ejecutar: `dotnet bui
 ### Prueba 1 — Registro
 **Acción:** agregar una postulación. **Resultado esperado:** se guarda en la base de datos y aparece en la lista.
 
-![Registro](evidencias/registro.png)
+![Registro](capturas/registro.png)
 
 
 ## 9. Problemas encontrados y soluciones
