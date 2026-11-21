@@ -1,0 +1,382 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="JobTracker.Views.MainWindow"
+        Title="JobTracker"
+        Width="1100" Height="620" MinWidth="780" MinHeight="500"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        Background="#F2F4F7">
+
+  <Window.Styles>
+    <!-- ===== Tarjetas ===== -->
+    <Style Selector="Border.card">
+      <Setter Property="Background" Value="White"/>
+      <Setter Property="BorderBrush" Value="#E3E8EE"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="CornerRadius" Value="14"/>
+    </Style>
+
+    <!-- ===== Etiquetas de formulario ===== -->
+    <Style Selector="TextBlock.label">
+      <Setter Property="FontSize" Value="12"/>
+      <Setter Property="FontWeight" Value="Medium"/>
+      <Setter Property="Foreground" Value="#647084"/>
+      <Setter Property="Margin" Value="0,0,0,6"/>
+    </Style>
+
+    <!-- ===== Etiquetas del embudo ===== -->
+    <Style Selector="TextBlock.stage">
+      <Setter Property="FontSize" Value="12"/>
+      <Setter Property="Foreground" Value="#647084"/>
+      <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+    </Style>
+    <Style Selector="TextBlock.stageCount">
+      <Setter Property="FontSize" Value="24"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="Foreground" Value="#121A24"/>
+    </Style>
+
+    <!-- ===== Campos ===== -->
+    <Style Selector="TextBox">
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="MinHeight" Value="38"/>
+    </Style>
+    <Style Selector="ComboBox">
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="MinHeight" Value="38"/>
+      <Setter Property="HorizontalAlignment" Value="Stretch"/>
+    </Style>
+    <Style Selector="CalendarDatePicker">
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="MinHeight" Value="38"/>
+      <Setter Property="HorizontalAlignment" Value="Stretch"/>
+    </Style>
+
+    <!-- ===== Botón principal (verde azulado) ===== -->
+    <Style Selector="Button.primary">
+      <Setter Property="Background" Value="#0F766E"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="Padding" Value="18,10"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.primary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#115E59"/>
+      <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <Style Selector="Button.primary:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#134E4A"/>
+      <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <!-- ===== Botón secundario ===== -->
+    <Style Selector="Button.ghost">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Foreground" Value="#334155"/>
+      <Setter Property="BorderBrush" Value="#D5DCE5"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="Padding" Value="14,9"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.ghost:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#EEF1F5"/>
+      <Setter Property="BorderBrush" Value="#C3CCD8"/>
+      <Setter Property="Foreground" Value="#1E293B"/>
+    </Style>
+    <Style Selector="Button.ghost:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#E2E8F0"/>
+      <Setter Property="Foreground" Value="#1E293B"/>
+    </Style>
+
+    <!-- ===== Botón de eliminar ===== -->
+    <Style Selector="Button.danger">
+      <Setter Property="Background" Value="#FEF3F2"/>
+      <Setter Property="Foreground" Value="#B42318"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="Padding" Value="14,9"/>
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    <Style Selector="Button.danger:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#FEE4E2"/>
+      <Setter Property="Foreground" Value="#912018"/>
+    </Style>
+    <Style Selector="Button.danger:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#FECDCA"/>
+      <Setter Property="Foreground" Value="#912018"/>
+    </Style>
+
+    <!-- ===== Elementos de la lista ===== -->
+    <Style Selector="ListBoxItem">
+      <Setter Property="Padding" Value="0"/>
+      <Setter Property="Margin" Value="0,0,0,8"/>
+    </Style>
+    <Style Selector="ListBoxItem /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="CornerRadius" Value="10"/>
+      <Setter Property="Background" Value="#FAFBFC"/>
+      <Setter Property="BorderBrush" Value="#E8ECF1"/>
+      <Setter Property="BorderThickness" Value="1"/>
+    </Style>
+    <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#F1F5F9"/>
+    </Style>
+    <Style Selector="ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#E7F3F1"/>
+      <Setter Property="BorderBrush" Value="#0F766E"/>
+    </Style>
+    <Style Selector="ListBoxItem:selected:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#DCEEEB"/>
+      <Setter Property="BorderBrush" Value="#0F766E"/>
+    </Style>
+  </Window.Styles>
+
+  <Panel>
+
+    <Grid Margin="24,16,24,12" RowDefinitions="Auto,14,Auto,14,*,Auto">
+
+      <!-- ===== ENCABEZADO ===== -->
+      <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
+        <StackPanel VerticalAlignment="Center">
+          <TextBlock Text="Mis postulaciones" FontSize="24" FontWeight="Bold" Foreground="#121A24"/>
+          <TextBlock x:Name="TotalText" FontSize="13" Foreground="#647084" Margin="0,2,0,0"/>
+        </StackPanel>
+        <Button Grid.Column="1" Classes="primary" Content="Nueva postulación"
+                VerticalAlignment="Center" Click="OnNewClick"/>
+      </Grid>
+
+      <!-- ===== EMBUDO (pipeline) =====
+           Una sola tarjeta con las 6 etapas en orden. Los colores coinciden con
+           ApplicationCard.StatusHex. -->
+      <Border Grid.Row="2" Classes="card" Padding="0">
+        <Grid ColumnDefinitions="*,1,*,1,*,1,*,1,*,1,*">
+
+          <StackPanel Grid.Column="0" Margin="16,10">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+              <Ellipse Width="8" Height="8" Fill="#2563EB" VerticalAlignment="Center"/>
+              <TextBlock Classes="stage" Text="Postulado"/>
+            </StackPanel>
+            <TextBlock x:Name="StatApplied" Classes="stageCount" Text="0"/>
+          </StackPanel>
+          <Border Grid.Column="1" Background="#E8ECF1" Margin="0,10"/>
+
+          <StackPanel Grid.Column="2" Margin="16,10">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+              <Ellipse Width="8" Height="8" Fill="#B7791F" VerticalAlignment="Center"/>
+              <TextBlock Classes="stage" Text="En revisión"/>
+            </StackPanel>
+            <TextBlock x:Name="StatInReview" Classes="stageCount" Text="0"/>
+          </StackPanel>
+          <Border Grid.Column="3" Background="#E8ECF1" Margin="0,10"/>
+
+          <StackPanel Grid.Column="4" Margin="16,10">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+              <Ellipse Width="8" Height="8" Fill="#7C3AED" VerticalAlignment="Center"/>
+              <TextBlock Classes="stage" Text="Entrevista"/>
+            </StackPanel>
+            <TextBlock x:Name="StatInterview" Classes="stageCount" Text="0"/>
+          </StackPanel>
+          <Border Grid.Column="5" Background="#E8ECF1" Margin="0,10"/>
+
+          <StackPanel Grid.Column="6" Margin="16,10">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+              <Ellipse Width="8" Height="8" Fill="#C2410C" VerticalAlignment="Center"/>
+              <TextBlock Classes="stage" Text="Prueba técnica"/>
+            </StackPanel>
+            <TextBlock x:Name="StatTechnicalTest" Classes="stageCount" Text="0"/>
+          </StackPanel>
+          <Border Grid.Column="7" Background="#E8ECF1" Margin="0,10"/>
+
+          <StackPanel Grid.Column="8" Margin="16,10">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+              <Ellipse Width="8" Height="8" Fill="#15803D" VerticalAlignment="Center"/>
+              <TextBlock Classes="stage" Text="Oferta"/>
+            </StackPanel>
+            <TextBlock x:Name="StatOffer" Classes="stageCount" Text="0"/>
+          </StackPanel>
+          <Border Grid.Column="9" Background="#E8ECF1" Margin="0,10"/>
+
+          <StackPanel Grid.Column="10" Margin="16,10">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+              <Ellipse Width="8" Height="8" Fill="#B42318" VerticalAlignment="Center"/>
+              <TextBlock Classes="stage" Text="Rechazado"/>
+            </StackPanel>
+            <TextBlock x:Name="StatRejected" Classes="stageCount" Text="0"/>
+          </StackPanel>
+
+        </Grid>
+      </Border>
+
+      <!-- ===== CONTENIDO (se adapta al ancho de la ventana) ===== -->
+      <Grid Grid.Row="4">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="3*" MinWidth="300"/>
+          <ColumnDefinition Width="16"/>
+          <ColumnDefinition Width="2*" MinWidth="340" MaxWidth="520"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- ===== Lista de postulaciones ===== -->
+        <Border Grid.Column="0" Classes="card" Padding="16">
+          <Grid RowDefinitions="Auto,12,*">
+
+            <Grid Grid.Row="0" ColumnDefinitions="*,10,170">
+              <TextBox x:Name="SearchBox" Watermark="Buscar por empresa o cargo"/>
+              <ComboBox x:Name="FilterBox" Grid.Column="2" SelectionChanged="OnFilterChanged"/>
+            </Grid>
+
+            <!-- TODO(FUTURO - BOTS): aquí puede ir una segunda pestaña o panel "Descubrir ofertas"
+                 que muestre los resultados de JobApplicationService.SearchPostingsAsync(...)
+                 con un botón "Guardar como postulación" en cada oferta. -->
+
+            <Panel Grid.Row="2">
+              <ListBox x:Name="ApplicationsList" Background="Transparent" Padding="0"
+                       SelectionChanged="OnApplicationSelected">
+                <ListBox.ItemTemplate>
+                  <DataTemplate>
+                    <Grid ColumnDefinitions="Auto,*,Auto" Margin="14,12">
+                      <Border Grid.Column="0" Width="42" Height="42" CornerRadius="12"
+                              Background="{Binding AvatarBackground}" Margin="0,0,14,0"
+                              VerticalAlignment="Center">
+                        <TextBlock Text="{Binding Initial}" FontSize="18" FontWeight="Bold"
+                                   Foreground="{Binding AvatarForeground}"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                      </Border>
+                      <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+                        <TextBlock Text="{Binding Position}" FontSize="15" FontWeight="SemiBold"
+                                   Foreground="#121A24" TextTrimming="CharacterEllipsis"/>
+                        <TextBlock Text="{Binding Company}" FontSize="13" Foreground="#475467"
+                                   TextTrimming="CharacterEllipsis"/>
+                        <TextBlock Text="{Binding Subtitle}" FontSize="12" Foreground="#8895A7"
+                                   TextTrimming="CharacterEllipsis"/>
+                      </StackPanel>
+                      <Border Grid.Column="2" Background="{Binding StatusBackground}" CornerRadius="999"
+                              Padding="12,5" Margin="12,0,0,0" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding StatusText}" FontSize="12" FontWeight="SemiBold"
+                                   Foreground="{Binding StatusForeground}"/>
+                      </Border>
+                    </Grid>
+                  </DataTemplate>
+                </ListBox.ItemTemplate>
+              </ListBox>
+
+              <StackPanel x:Name="EmptyState" IsVisible="False" Spacing="6"
+                          HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock x:Name="EmptyTitle" Text="Todavía no hay postulaciones" FontSize="16"
+                           FontWeight="SemiBold" Foreground="#121A24" HorizontalAlignment="Center"/>
+                <TextBlock x:Name="EmptyHint" Text="Completa el formulario y guarda la primera."
+                           FontSize="13" Foreground="#647084" HorizontalAlignment="Center"
+                           TextWrapping="Wrap" TextAlignment="Center"/>
+              </StackPanel>
+            </Panel>
+
+          </Grid>
+        </Border>
+
+        <!-- ===== Formulario ===== -->
+        <Border Grid.Column="2" Classes="card" Padding="0">
+          <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="20" Spacing="12">
+
+              <TextBlock x:Name="FormTitle" Text="Nueva postulación" FontSize="18"
+                         FontWeight="SemiBold" Foreground="#121A24"/>
+
+              <StackPanel>
+                <TextBlock Classes="label" Text="Empresa"/>
+                <TextBox x:Name="CompanyBox" Watermark="Ej. Bancolombia"/>
+              </StackPanel>
+
+              <StackPanel>
+                <TextBlock Classes="label" Text="Cargo"/>
+                <TextBox x:Name="PositionBox" Watermark="Ej. Desarrollador C# junior"/>
+              </StackPanel>
+
+              <Grid ColumnDefinitions="*,12,*">
+                <StackPanel>
+                  <TextBlock Classes="label" Text="Fecha de postulación"/>
+                  <CalendarDatePicker x:Name="DateBox"/>
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                  <TextBlock Classes="label" Text="Estado"/>
+                  <ComboBox x:Name="StatusBox"/>
+                </StackPanel>
+              </Grid>
+
+              <Grid ColumnDefinitions="*,12,110">
+                <StackPanel>
+                  <TextBlock Classes="label" Text="Salario ofrecido (opcional)"/>
+                  <TextBox x:Name="SalaryBox" Watermark="Ej. 4500000"/>
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                  <TextBlock Classes="label" Text="Moneda"/>
+                  <ComboBox x:Name="CurrencyBox"/>
+                </StackPanel>
+              </Grid>
+
+              <StackPanel>
+                <TextBlock Classes="label" Text="Enlace de la oferta"/>
+                <Grid ColumnDefinitions="*,8,Auto">
+                  <TextBox x:Name="LinkBox" Watermark="https://..."/>
+                  <Button Grid.Column="2" Classes="ghost" Content="Abrir" Click="OnOpenLinkClick"/>
+                </Grid>
+                <!-- TODO(FUTURO - BOTS + IA): este botón llamará a JobApplicationService.ImportFromLinkAsync
+                     y llenará empresa, cargo y salario leyendo la página de la oferta. -->
+                <Button Classes="ghost" Content="Autocompletar desde el enlace" Margin="0,8,0,0"
+                        HorizontalAlignment="Left" Click="OnAutofillClick"/>
+              </StackPanel>
+
+              <StackPanel>
+                <TextBlock Classes="label" Text="Notas"/>
+                <TextBox x:Name="NotesBox" Height="84" AcceptsReturn="True" TextWrapping="Wrap"
+                         Watermark="Contacto, tecnologías, próximos pasos..."/>
+                <!-- TODO(FUTURO - IA): mostrar aquí el resumen de la oferta (AiSummary) y el
+                     porcentaje de compatibilidad (MatchScore) cuando existan. -->
+              </StackPanel>
+
+              <Border x:Name="ErrorBox" IsVisible="False" Background="#FEF3F2" BorderBrush="#FECDCA"
+                      BorderThickness="1" CornerRadius="8" Padding="12,10">
+                <TextBlock x:Name="ErrorText" Foreground="#B42318" FontSize="13" TextWrapping="Wrap"/>
+              </Border>
+
+              <WrapPanel Margin="0,4,0,0">
+                <Button x:Name="SaveButton" Classes="primary" Content="Guardar"
+                        Margin="0,0,10,8" Click="OnSaveClick"/>
+                <Button Classes="ghost" Content="Limpiar" Margin="0,0,10,8" Click="OnClearClick"/>
+                <Button x:Name="DeleteButton" Classes="danger" Content="Eliminar"
+                        Margin="0,0,0,8" IsVisible="False" Click="OnDeleteClick"/>
+              </WrapPanel>
+
+            </StackPanel>
+          </ScrollViewer>
+        </Border>
+      </Grid>
+
+      <!-- ===== PIE ===== -->
+      <TextBlock x:Name="DbPathText" Grid.Row="5" FontSize="11" Foreground="#8895A7"
+                 Margin="0,10,0,0" TextTrimming="CharacterEllipsis"/>
+    </Grid>
+
+    <!-- ===== Notificación ===== -->
+    <Border x:Name="Toast" IsVisible="False" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+            Margin="0,0,0,48" Padding="20,12" CornerRadius="10" Background="#15803D"
+            BoxShadow="0 8 24 0 #33000000">
+      <TextBlock x:Name="ToastText" Foreground="White" FontWeight="Medium"/>
+    </Border>
+
+    <!-- ===== Confirmación de eliminación ===== -->
+    <Border x:Name="DeleteOverlay" IsVisible="False" Background="#8C121A24">
+      <Border Classes="card" Width="380" Padding="24" HorizontalAlignment="Center"
+              VerticalAlignment="Center" BoxShadow="0 16 40 0 #40000000">
+        <StackPanel Spacing="12">
+          <TextBlock Text="Eliminar postulación" FontSize="18" FontWeight="SemiBold" Foreground="#121A24"/>
+          <TextBlock x:Name="DeleteMessage" TextWrapping="Wrap" Foreground="#647084"/>
+          <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right" Margin="0,8,0,0">
+            <Button Classes="ghost" Content="Cancelar" Click="OnDeleteCancel"/>
+            <Button Classes="danger" Content="Eliminar" Click="OnDeleteConfirm"/>
+          </StackPanel>
+        </StackPanel>
+      </Border>
+    </Border>
+
+  </Panel>
+</Window>
